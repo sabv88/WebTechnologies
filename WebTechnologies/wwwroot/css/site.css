@@ -1,0 +1,24 @@
+header, footer{
+    background-color: #343a40
+}
+
+.nav-color{
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.div1 {
+    display: inline-block;
+}
+
+.social {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav {
+    overflow: visible; /*Changed from auto*/
+}
+.right {
+    display: flex;
+    justify-content: space-between;
+}

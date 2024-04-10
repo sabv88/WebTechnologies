@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebTechnologies</title>
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebTechnologies.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark right">
+            <!-- меню сайта -->
+            <a class="navbar-brand" asp-action="Index" asp controller="Home">WebLabsV06</a>
+            <div class="navbar-nav">
+                @await Component.InvokeAsync("Menu")
+            </div>
+
+
+            <!-- меню сайта - конец -->
+            <!-- Информация пользователя -->
+            @if (signInManager.IsSignedIn(User))
+            {
+            <div class="d-flex">
+
+                <a asp-controller="Cart" asp-action="Index" class="navbar-text mlauto">
+                    00,0 руб <i class="fas fa-shopping-cart nav-color"></i> (0)
+                </a>
+                <div class="dropdown ml-4 nav-color">
+                    <div class="dropdown-toggle" id="dropdownMenuButton"
+                         data-bs-toggle="dropdown"
+                         aria-haspopup="true" aria-expanded="false">
+                        <img src="~/images/ava.jpg" width="30" alt="User"
+                             class="rounded" />
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item-text">
+                            <img src="~/images/ava.jpg" width="50" alt="User"
+                                 class="rounded" />
+                                @User.Identity.Name
+                            </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-controller="Cart" aspaction="Index">Мои товары</a>
+                            <form asp-area="Identity"
+                                  asp-page="/Account/Logout"
+                                  asp-route-returnurl="@ViewContext.HttpContext.Request.Path">
+                                <input type="submit"
+                                       value="Log off"
+                                       class="dropdown-item" />
+                            </form>
+                    </div>
+                </div>
+                
+            </div>
+            }
+            else
+            {
+                <ul class="nav navbar-nav ml-auto">
+                    <li>
+                        <a class="nav-item nav-link"
+                           asp-area="Identity"
+                           asp-page="/Account/Login">
+                            Войти
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item nav-link"
+                           asp-area="Identity"
+                           asp-page="/Account/Register">
+                            Зарегистрироваться
+                        </a>
+                    </li>
+                </ul>
+            }
+
+            <!-- Информация пользователя - конец -->
+        </nav> <!-- Панель навигации - конец -->
+    </header><!-- header - конец -->
+    <main class="container">
+        <h1>Лабораторная работа 1</h1>
+        <h3>Список</h3>
+        <ol style="list-style-type:upper-alpha">
+            <li>Элемент 1 списка</li>
+            <li>Элемент 2 списка</li>
+        </ol>
+        <h3>Форма</h3>
+
+        <form method="post">
+            <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="check1" id="Check1">
+                        <label class="form-check-label" for="Check1">
+                            Чек-бокс 1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="check2" id="Check">
+                        <label class="form-check-label" for="Check2">
+                            Чек-бокс 2
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0"></legend>
+                    <div class="col-sm-10">
+                        <div class="div1 form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios1" id="gridRadios1" value="option1" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                                Радио-1
+                            </label>
+                        </div>
+                        <div class="div1 form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios2" value="option2">
+                            <label class="form-check-label" for="gridRadios2">
+                                Радио-2
+                            </label>
+                        </div>
+                        <div class="div1 form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios3" id="gridRadios3" value="option3">
+                            <label class="form-check-label" for="gridRadios3">
+                                Радио-3
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Логин</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3" name="login" placeholder="Логин">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Пароль</label>
+                <div class="col-sm-10">
+                    <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Пароль">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+            </div>
+        </form>
+    </main>
+    <footer class="fixed-bottom">
+        <div class="navbar navbar-dark navbar-expand-md bg-dark social">
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="http://www.facebook.com">
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.vk.com">
+                    <i class="fab fa-vk fa-2x"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.twitter.com">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
